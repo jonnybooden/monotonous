@@ -139,15 +139,13 @@
    for (b=0; b<10; b+=1) {
     for (c=0; c<10; c+=1) {
      for (d=0; d<10; d+=1) {
-       if (a != b && a != c && a != d && b != c && b != d && c != d) {
-         fourDifferent.push(num);
-         continue;
-       }
-       }
-       }
-       }
-       }
-       }
+       if (a != c && a != d && a != b && b != c && c != d && b != d){
+ abc.push(a.toString() + b.toString() + c.toString() + d.toString());
+  }
+   }
+   } 
+   }  
+   }
  
      // Display results in HTML
      document.getElementById('fourRepeated').innerHTML = fourRepeated.join(', ');
