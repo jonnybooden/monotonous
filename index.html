@@ -1,19 +1,5 @@
 <h1 id="list"></h1>
 <script>
-  abc = [];
-  for (a=0; a<10; a+=1) {
-  for (b=0; b<10; b+=1) {
-   for (c=0; c<10; c+=1) {
-    for (d=0; d<10; d+=1) {
- if (a != c && a != d && a != b && b != c && c != d && b != d){
-abc.push(a.toString() + b.toString() + c.toString() + d.toString());
- }
-  }
-  } 
-  }  
-  }
-  document.getElementById("list").innerHTML = abc;
-</script>
   <h1>4-Digit Number Patterns</h1>
   <h2>Four numbers repeated (e.g., 7777)</h2>
   <p id="fourRepeated"></p>
@@ -39,3 +25,17 @@ abc.push(a.toString() + b.toString() + c.toString() + d.toString());
   <p id="onePairNotBackToBack"></p>
   <h2>Four different numbers</h2>
   <p id="fourDifferent"></p>
+ abc = [];
+  for (a=0; a<10; a+=1) {
+  for (b=0; b<10; b+=1) {
+   for (c=0; c<10; c+=1) {
+    for (d=0; d<10; d+=1) {
+ if (a != c && a != d && a != b && b != c && c != d && b != d){
+abc.push(a.toString() + b.toString() + c.toString() + d.toString());
+ }
+  }
+  } 
+  }  
+  }
+document.getElementById("list").innerHTML = abc;
+</script>
