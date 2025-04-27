@@ -1,33 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>4-Digit Number Patterns</title>
+  <title>4-Digit Number Patterns with Colors</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      font-size: 1.5em;
+    }
+    .number-list {
+      word-wrap: break-word;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Four numbers repeated (e.g., 7777)</h1>
-  <h1 id="fourRepeated"></h1>
-  <h1>Three numbers back to back (e.g., 6667)</h1>
-  <h1 id="threeBackToBack"></h1>
-  <h1>Three numbers not back to back (e.g., 6766)</h1>
-  <h1 id="threeNotBackToBack"></h1>
-  <h1>Four numbers in +1 ascending order (e.g., 4567)</h1>
-  <h1 id="ascendingPlusOne"></h1>
-  <h1>Four numbers in random ascending order (e.g., 1589)</h1>
-  <h1 id="ascendingRandom"></h1>
-  <h1>Four numbers in -1 descending order (e.g., 7654)</h1>
-  <h1 id="descendingMinusOne"></h1>
-  <h1>Four numbers in random descending order (e.g., 8521)</h1>
-  <h1 id="descendingRandom"></h1>
-  <h1>Two pairs of numbers back to back (e.g., 5577)</h1>
-  <h1 id="twoPairsBackToBack"></h1>
-  <h1>Two pairs of numbers not back to back (e.g., 9494)</h1>
-  <h1 id="twoPairsNotBackToBack"></h1>
-  <h1>One pair of numbers back to back (e.g., 4188)</h1>
-  <h1 id="onePairBackToBack"></h1>
-  <h1>One pair of numbers not back to back (e.g., 5265)</h1>
-  <h1 id="onePairNotBackToBack"></h1>
-  <h1>Four different numbers</h1>
-  <h1 id="fourDifferent"></h1>
+  <h1>Four numbers repeated (e.g., 7777) - Red</h1>
+  <div id="fourRepeated" class="number-list"></div>
+  <h1>Three numbers back to back (e.g., 6667) - Orange</h1>
+  <div id="threeBackToBack" class="number-list"></div>
+  <h1>Three numbers not back to back (e.g., 6766) - Yellow</h1>
+  <div id="threeNotBackToBack" class="number-list"></div>
+  <h1>Four numbers in +1 ascending order (e.g., 4567) - Green</h1>
+  <div id="ascendingPlusOne" class="number-list"></div>
+  <h1>Four numbers in random ascending order (e.g., 1589) - Blue</h1>
+  <div id="ascendingRandom" class="number-list"></div>
+  <h1>Four numbers in -1 descending order (e.g., 7654) - Indigo</h1>
+  <div id="descendingMinusOne" class="number-list"></div>
+  <h1>Four numbers in random descending order (e.g., 8521) - Violet</h1>
+  <div id="descendingRandom" class="number-list"></div>
+  <h1>Two pairs of numbers back to back (e.g., 5577) - Black</h1>
+  <div id="twoPairsBackToBack" class="number-list"></div>
+  <h1>Two pairs of numbers not back to back (e.g., 9494) - Black</h1>
+  <div id="twoPairsNotBackToBack" class="number-list"></div>
+  <h1>One pair of numbers back to back (e.g., 4188) - Black</h1>
+  <div id="onePairBackToBack" class="number-list"></div>
+  <h1>One pair of numbers not back to back (e.g., 5265) - Black</h1>
+  <div id="onePairNotBackToBack" class="number-list"></div>
+  <h1>Four different numbers (e.g., 1234) - Black</h1>
+  <div id="fourDifferent" class="number-list"></div>
+  <h1>All Numbers (0000–9999) with Highest-Priority Colors</h1>
+  <div id="allNumbers" class="number-list"></div>
 
   <script>
     // Arrays for each pattern
@@ -44,6 +58,25 @@
     let onePairNotBackToBack = [];
     let fourDifferent = [];
 
+    // Object to store categories for each number
+    let numberCategories = {};
+
+    // Priority order of categories (prompt 1 has highest priority)
+    const priorityOrder = [
+      { name: 'fourRepeated', color: 'red' },
+      { name: 'threeBackToBack', color: 'orange' },
+      { name: 'threeNotBackToBack', color: 'yellow' },
+      { name: 'ascendingPlusOne', color: 'green' },
+      { name: 'ascendingRandom', color: 'blue' },
+      { name: 'descendingMinusOne', color: 'indigo' },
+      { name: 'descendingRandom', color: 'violet' },
+      { name: 'twoPairsBackToBack', color: 'black' },
+      { name: 'twoPairsNotBackToBack', color: 'black' },
+      { name: 'onePairBackToBack', color: 'black' },
+      { name: 'onePairNotBackToBack', color: 'black' },
+      { name: 'fourDifferent', color: 'black' }
+    ];
+
     // Nested loops to generate all 4-digit numbers
     for (let a = 0; a < 10; a += 1) {
       for (let b = 0; b < 10; b += 1) {
@@ -51,93 +84,138 @@
           for (let d = 0; d < 10; d += 1) {
             // Create the 4-digit string
             let num = a.toString() + b.toString() + c.toString() + d.toString();
+            let categories = [];
 
-            // Check all patterns (no continue to allow multiple categories)
-            // 1. Four numbers repeated (e.g., 7777)
+            // Check all patterns and store applicable categories
+            // 1. Four numbers repeated (e.g., 7777) - Red
             if (a === b && b === c && c === d) {
               fourRepeated.push(num);
+              categories.push({ name: 'fourRepeated', color: 'red' });
             }
 
-            // 2. Three numbers back to back (e.g., 6667)
+            // 2. Three numbers back to back (e.g., 6667) - Orange
             if ((a === b && b === c) || (b === c && c === d)) {
               threeBackToBack.push(num);
+              categories.push({ name: 'threeBackToBack', color: 'orange' });
             }
 
-            // 3. Three numbers not back to back (e.g., 6766)
+            // 3. Three numbers not back to back (e.g., 6766) - Yellow
             let digitCounts = {};
             [a, b, c, d].forEach(digit => {
               digitCounts[digit] = (digitCounts[digit] || 0) + 1;
             });
             if (Object.values(digitCounts).includes(3) && !(a === b && b === c) && !(b === c && c === d)) {
               threeNotBackToBack.push(num);
+              categories.push({ name: 'threeNotBackToBack', color: 'yellow' });
             }
 
-            // 4. Four numbers in +1 ascending order (e.g., 4567)
+            // 4. Four numbers in +1 ascending order (e.g., 4567) - Green
             if (b === a + 1 && c === b + 1 && d === c + 1) {
               ascendingPlusOne.push(num);
+              categories.push({ name: 'ascendingPlusOne', color: 'green' });
             }
 
-            // 5. Four numbers in random ascending order (e.g., 1589)
+            // 5. Four numbers in random ascending order (e.g., 1589) - Blue
             if (a < b && b < c && c < d && !(b === a + 1 && c === b + 1 && d === c + 1)) {
               ascendingRandom.push(num);
+              categories.push({ name: 'ascendingRandom', color: 'blue' });
             }
 
-            // 6. Four numbers in -1 descending order (e.g., 7654)
+            // 6. Four numbers in -1 descending order (e.g., 7654) - Indigo
             if (b === a - 1 && c === b - 1 && d === c - 1) {
               descendingMinusOne.push(num);
+              categories.push({ name: 'descendingMinusOne', color: 'indigo' });
             }
 
-            // 7. Four numbers in random descending order (e.g., 8521)
+            // 7. Four numbers in random descending order (e.g., 8521) - Violet
             if (a > b && b > c && c > d && !(b === a - 1 && c === b - 1 && d === c - 1)) {
               descendingRandom.push(num);
+              categories.push({ name: 'descendingRandom', color: 'violet' });
             }
 
-            // 8. Two pairs of numbers back to back (e.g., 5577)
+            // 8. Two pairs of numbers back to back (e.g., 5577) - Black
             if (a === b && c === d && a !== c) {
               twoPairsBackToBack.push(num);
+              categories.push({ name: 'twoPairsBackToBack', color: 'black' });
             }
 
-            // 9. Two pairs of numbers not back to back (e.g., 9494)
+            // 9. Two pairs of numbers not back to back (e.g., 9494) - Black
             if (a === c && b === d && a !== b && a !== d) {
               twoPairsNotBackToBack.push(num);
+              categories.push({ name: 'twoPairsNotBackToBack', color: 'black' });
             }
 
-            // 10. One pair of numbers back to back (e.g., 4188)
+            // 10. One pair of numbers back to back (e.g., 4188) - Black
             if ((a === b && b !== c && c !== d && a !== d) || 
                 (b === c && a !== b && c !== d) || 
                 (c === d && a !== b && b !== c && a !== d)) {
               onePairBackToBack.push(num);
+              categories.push({ name: 'onePairBackToBack', color: 'black' });
             }
 
-            // 11. One pair of numbers not back to back (e.g., 5265)
+            // 11. One pair of numbers not back to back (e.g., 5265) - Black
             if ((a === c && a !== b && a !== d && b !== d) || 
                 (a === d && a !== b && a !== c && b !== c) || 
                 (b === d && a !== b && b !== c && a !== c)) {
               onePairNotBackToBack.push(num);
+              categories.push({ name: 'onePairNotBackToBack', color: 'black' });
             }
 
-            // 12. Four different numbers
+            // 12. Four different numbers (e.g., 1234) - Black
             if (a !== b && a !== c && a !== d && b !== c && b !== d && c !== d) {
               fourDifferent.push(num);
+              categories.push({ name: 'fourDifferent', color: 'black' });
             }
+
+            // Store categories for this number
+            numberCategories[num] = categories;
           }
         }
       }
     }
 
-    // Display results in HTML
-    document.getElementById("fourRepeated").innerHTML = fourRepeated.join(', ');
-    document.getElementById("threeBackToBack").innerHTML = threeBackToBack.join(', ');
-    document.getElementById("threeNotBackToBack").innerHTML = threeNotBackToBack.join(', ');
-    document.getElementById("ascendingPlusOne").innerHTML = ascendingPlusOne.join(', ');
-    document.getElementById("ascendingRandom").innerHTML = ascendingRandom.join(', ');
-    document.getElementById("descendingMinusOne").innerHTML = descendingMinusOne.join(', ');
-    document.getElementById("descendingRandom").innerHTML = descendingRandom.join(', ');
-    document.getElementById("twoPairsBackToBack").innerHTML = twoPairsBackToBack.join(', ');
-    document.getElementById("twoPairsNotBackToBack").innerHTML = twoPairsNotBackToBack.join(', ');
-    document.getElementById("onePairBackToBack").innerHTML = onePairBackToBack.join(', ');
-    document.getElementById("onePairNotBackToBack").innerHTML = onePairNotBackToBack.join(', ');
-    document.getElementById("fourDifferent").innerHTML = fourDifferent.join(', ');
+    // Function to format numbers with color
+    function formatNumbers(numbers, colorOverride = null) {
+      return numbers.map(num => {
+        let color = colorOverride;
+        if (!color) {
+          // Find the highest-priority category (earliest in priorityOrder)
+          const categories = numberCategories[num];
+          if (categories && categories.length > 0) {
+            const topCategory = categories.sort((a, b) => 
+              priorityOrder.findIndex(p => p.name === a.name) - 
+              priorityOrder.findIndex(p => p.name === b.name)
+            )[0];
+            color = topCategory.color;
+          } else {
+            color = 'black';
+          }
+        }
+        return `<span style="color: ${color}">${num}</span>`;
+      }).join(', ');
+    }
+
+    // Display categorized lists with consistent colors
+    document.getElementById("fourRepeated").innerHTML = formatNumbers(fourRepeated, 'red');
+    document.getElementById("threeBackToBack").innerHTML = formatNumbers(threeBackToBack, 'orange');
+    document.getElementById("threeNotBackToBack").innerHTML = formatNumbers(threeNotBackToBack, 'yellow');
+    document.getElementById("ascendingPlusOne").innerHTML = formatNumbers(ascendingPlusOne, 'green');
+    document.getElementById("ascendingRandom").innerHTML = formatNumbers(ascendingRandom, 'blue');
+    document.getElementById("descendingMinusOne").innerHTML = formatNumbers(descendingMinusOne, 'indigo');
+    document.getElementById("descendingRandom").innerHTML = formatNumbers(descendingRandom, 'violet');
+    document.getElementById("twoPairsBackToBack").innerHTML = formatNumbers(twoPairsBackToBack, 'black');
+    document.getElementById("twoPairsNotBackToBack").innerHTML = formatNumbers(twoPairsNotBackToBack, 'black');
+    document.getElementById("onePairBackToBack").innerHTML = formatNumbers(onePairBackToBack, 'black');
+    document.getElementById("onePairNotBackToBack").innerHTML = formatNumbers(onePairNotBackToBack, 'black');
+    document.getElementById("fourDifferent").innerHTML = formatNumbers(fourDifferent, 'black');
+
+    // Generate and display all numbers in order (0000–9999) with prioritized colors
+    let allNumbersHtml = [];
+    for (let i = 0; i <= 9999; i++) {
+      let num = i.toString().padStart(4, '0');
+      allNumbersHtml.push(formatNumbers([num]));
+    }
+    document.getElementById("allNumbers").innerHTML = allNumbersHtml.join(', ');
   </script>
 </body>
 </html>
