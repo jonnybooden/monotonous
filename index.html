@@ -134,11 +134,20 @@
        }
  
        // 12. Four different numbers
+      abc = [];
+   for (a=0; a<10; a+=1) {
+   for (b=0; b<10; b+=1) {
+    for (c=0; c<10; c+=1) {
+     for (d=0; d<10; d+=1) {
        if (a != b && a != c && a != d && b != c && b != d && c != d) {
          fourDifferent.push(num);
          continue;
        }
-     }
+       }
+       }
+       }
+       }
+       }
  
      // Display results in HTML
      document.getElementById('fourRepeated').innerHTML = fourRepeated.join(', ');
